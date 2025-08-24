@@ -2,7 +2,7 @@
 
 
 import Image from "next/image";
-import Reveal from "./reveal/Reveal";
+import Reveal from "./Reveal/Reveal";
 
 const whyChooseUs = [
   {

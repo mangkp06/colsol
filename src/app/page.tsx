@@ -6,7 +6,7 @@ import NationwideReachSection from "@/components/nationwide";
 import TrustedBySection from "@/components/trustbysection";
 import WhyChooseSection from "@/components/whychoose";
 import Image from "next/image";
-import Reveal from '@/components/reveal/Reveal';
+import Reveal from '@/components/Reveal/Reveal';
 
 const stats = [
   { number: "150+", label: "Manpower in all major states" },

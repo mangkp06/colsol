@@ -1,7 +1,7 @@
 'use client';
 
 
-import Reveal from "./reveal/Reveal";
+import Reveal from "./Reveal/Reveal";
 import Image from "next/image";
 
 export default function EmployeeTestimonials() {

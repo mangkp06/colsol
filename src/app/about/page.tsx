@@ -3,7 +3,7 @@
 
 "use client";
 
-import Reveal from "@/components/reveal/Reveal";
+import Reveal from "@/components/Reveal/Reveal";
 import Image from "next/image";
 
 export default function About() {

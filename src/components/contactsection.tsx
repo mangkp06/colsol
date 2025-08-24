@@ -2,7 +2,7 @@
 
 
 import Image from "next/image";
-import Reveal from "@/components/reveal/Reveal";
+import Reveal from "@/components/Reveal/Reveal";
 
 export default function ContactSection() {
   const contacts = [
