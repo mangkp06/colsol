@@ -2,6 +2,7 @@
 
 
 import Reveal from "./reveal/Reveal";
+import Image from "next/image";
 
 export default function EmployeeTestimonials() {
   const testimonials = [
@@ -50,7 +51,7 @@ export default function EmployeeTestimonials() {
 
               {/* Profile */}
               <div className="flex items-center gap-3 sm:gap-4">
-                <img
+                <Image
                   src={t.image}
                   alt={t.name}
                   className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"

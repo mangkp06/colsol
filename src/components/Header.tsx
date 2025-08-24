@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import Image from "next/image"; // Ensure Image is imported if used
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,7 +38,7 @@ export default function Header() {
       {/* Logo */}
       <div>
         <Link href="/" onClick={() => setIsMenuOpen(false)}>
-          <img src="/colsol_logo.svg" alt="Logo" className="h-10 w-auto" />
+          <Image src="/colsol_logo.svg" alt="Logo" className="h-10 w-auto" />
         </Link>
       </div>
 
