@@ -1,49 +1,150 @@
+
 "use client";
 
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentHash, setCurrentHash] = useState("");
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    setCurrentHash(window.location.hash);
+
+    const handleHashChange = () => {
+      setCurrentHash(window.location.hash);
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, [pathname, searchParams]);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const isActive = (path: string) => {
+    if (path.includes("#")) {
+      const [basePath, hash] = path.split("#");
+      return pathname === basePath && currentHash === `#${hash}`;
+    }
+    return pathname === path && currentHash === "";
+  };
 
   return (
-    <header className="flex items-center justify-between px-8 py-4 shadow-sm">
+    <nav className="flex items-center justify-between px-6 md:px-16 py-4 bg-white sticky top-0 z-50 shadow-sm">
       {/* Logo */}
-      <div className="flex items-center gap-2">
-        <Image src="/colsol_logo.svg" alt="ColSol Logo" width={40} height={40} />
-        <span className="text-gray-700 font-semibold">COLSOL</span>
+      <div>
+        <Link href="/" onClick={() => setIsMenuOpen(false)}>
+          <img src="/colsol_logo.svg" alt="Logo" className="h-10 w-auto" />
+        </Link>
       </div>
-
-      {/* Desktop Nav */}
-      <nav className="hidden md:flex gap-6 text-gray-600">
-        <Link href="/" className="text-blue-600 font-medium">Home</Link>
-        <Link href="/services">Services</Link>
-        <Link href="/about">About Us</Link>
-        <Link href="/contact">Contact Us</Link>
-      </nav>
 
       {/* Mobile Hamburger */}
       <button
-        className="md:hidden p-2 rounded hover:bg-gray-100"
-        onClick={() => setMenuOpen(!menuOpen)}
+        className="md:hidden p-2"
+        onClick={toggleMenu}
+        aria-label="Toggle menu"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
+        <span className="block w-6 h-0.5 bg-gray-800 mb-1"></span>
+        <span className="block w-6 h-0.5 bg-gray-800 mb-1"></span>
+        <span className="block w-6 h-0.5 bg-gray-800"></span>
       </button>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center gap-4 py-6 md:hidden">
-          <Link href="/" className="text-blue-600 font-medium" onClick={() => setMenuOpen(false)}>Home</Link>
-          <Link href="/services" onClick={() => setMenuOpen(false)}>Services</Link>
-          <Link href="/about" onClick={() => setMenuOpen(false)}>About Us</Link>
-          <Link href="/contact" onClick={() => setMenuOpen(false)}>Contact Us</Link>
+      {/* Desktop Nav */}
+      <div className="hidden md:flex gap-8 items-center">
+        <Link href="/" onClick={() => setIsMenuOpen(false)}>
+          <span
+            className={
+              isActive("/") ? "text-blue-600 font-semibold" : "text-[#6B6B6B]"
+            }
+          >
+            Home
+          </span>
+        </Link>
+        <Link href="/#services" onClick={() => setIsMenuOpen(false)}>
+          <span
+            className={
+              isActive("/#services")
+                ? "text-blue-600 font-semibold"
+                : "text-[#6B6B6B]"
+            }
+          >
+            Services
+          </span>
+        </Link>
+        <Link href="/about" onClick={() => setIsMenuOpen(false)}>
+          <span
+            className={
+              isActive("/about")
+                ? "text-blue-600 font-semibold"
+                : "text-[#6B6B6B]"
+            }
+          >
+            About Us
+          </span>
+        </Link>
+        <Link href="/#contact" onClick={() => setIsMenuOpen(false)}>
+          <span
+            className={
+              isActive("/#contact")
+                ? "text-blue-600 font-semibold"
+                : "text-[#6B6B6B]"
+            }
+          >
+            Contact Us
+          </span>
+        </Link>
+      </div>
+
+      {/* Mobile Nav Dropdown */}
+      {isMenuOpen && (
+        <div className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-center gap-6 py-6 md:hidden">
+          <Link href="/" onClick={() => setIsMenuOpen(false)}>
+            <span
+              className={
+                isActive("/") ? "text-blue-600 font-semibold" : "text-[#6B6B6B]"
+              }
+            >
+              Home
+            </span>
+          </Link>
+          <Link href="/#services" onClick={() => setIsMenuOpen(false)}>
+            <span
+              className={
+                isActive("/#services")
+                  ? "text-blue-600 font-semibold"
+                  : "text-[#6B6B6B]"
+              }
+            >
+              Services
+            </span>
+          </Link>
+          <Link href="/about" onClick={() => setIsMenuOpen(false)}>
+            <span
+              className={
+                isActive("/about")
+                  ? "text-blue-600 font-semibold"
+                  : "text-[#6B6B6B]"
+              }
+            >
+              About Us
+            </span>
+          </Link>
+          <Link href="/#contact" onClick={() => setIsMenuOpen(false)}>
+            <span
+              className={
+                isActive("/#contact")
+                  ? "text-blue-600 font-semibold"
+                  : "text-[#6B6B6B]"
+              }
+            >
+              Contact Us
+            </span>
+          </Link>
         </div>
       )}
-    </header>
+    </nav>
   );
 }

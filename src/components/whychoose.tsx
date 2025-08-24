@@ -1,4 +1,8 @@
+'use client';
+
+
 import Image from "next/image";
+import Reveal from "./reveal/Reveal";
 
 const whyChooseUs = [
   {
@@ -26,37 +30,40 @@ const whyChooseUs = [
 
 export default function WhyChooseSection() {
   return (
-    <section className="bg-[#F7F9FC] py-16 px-6 md:px-12 lg:m-4">
-      <div className="max-w-6xl mx-auto space-y-16">
+    <section className="bg-[#F7F9FC] py-12 px-4 sm:px-6 md:px-12">
+      <div className="max-w-6xl mx-auto space-y-12 md:space-y-16">
         {whyChooseUs.map((item, idx) => (
-          <div
-            key={idx}
-            className={`grid grid-cols-1 md:grid-cols-2 items-center gap-8 ${
-              idx % 2 !== 0 ? "md:flex-row-reverse" : ""
-            } mb-8 md:mb-12`}
-          >
-            {/* Text */}
-            <div>
-              <p className="text-sm uppercase tracking-wide text-gray-500 mb-2">
-                {item.subtitle}
-              </p>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                {item.title}
-              </h3>
-              <p className="text-gray-600">{item.description}</p>
-            </div>
+          <Reveal key={idx} effect="fade-up" delay={idx * 100}>
+            <div
+              className={`grid grid-cols-1 md:grid-cols-2 items-center gap-6 md:gap-12 ${
+                idx % 2 !== 0 ? "md:flex-row-reverse" : ""
+              }`}
+            >
+              {/* Text */}
+              <div className="text-center md:text-left">
+                <p className="text-xs sm:text-sm uppercase tracking-wide text-gray-500 mb-2">
+                  {item.subtitle}
+                </p>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600">
+                  {item.description}
+                </p>
+              </div>
 
-            {/* Image */}
-            <div className="flex">
-              <Image
-                src={item.image}
-                alt={item.title}
-                width={400}
-                height={400}
-                className="rounded-xl w-80 h-64 shadow-md object-fit"
-              />
+              {/* Image */}
+              <div className="flex justify-center md:justify-end">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  width={400}
+                  height={400}
+                  className="rounded-xl w-full max-w-sm h-auto shadow-md object-cover"
+                />
+              </div>
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>
